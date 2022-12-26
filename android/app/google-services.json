@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "896907257900",
+    "project_id": "moviesapp-d3d24",
+    "storage_bucket": "moviesapp-d3d24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896907257900:android:cf1917efa55352dd4bc989",
+        "android_client_info": {
+          "package_name": "com.example.movies_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896907257900-161bit9j62s5436nnqbisam1vkofoks4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqtUkS8oRa0myDbvWKuIo82dm3yD0t4GY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896907257900-161bit9j62s5436nnqbisam1vkofoks4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
