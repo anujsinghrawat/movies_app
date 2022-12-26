@@ -103,118 +103,120 @@ class _LoginWidgetState extends State<LoginWidget> {
     Widget build(BuildContext context) {
       return Scaffold(
         backgroundColor: Colors.grey[300],
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 50),
-
-                // logo
-                const Icon(
-                  Icons.lock,
-                  size: 100,
-                ),
-
-                const SizedBox(height: 50),
-
-                //welcome Back
-
-                Text(
-                  'welcome Back,you\'ve been missed!',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 50),
+        
+                  // logo
+                  const Icon(
+                    Icons.lock,
+                    size: 100,
                   ),
-                ),
-
-                const SizedBox(height: 50),
-
-                //
-                TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+        
+                  const SizedBox(height: 50),
+        
+                  //welcome Back
+        
+                  Text(
+                    'welcome Back,you\'ve been missed!',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 16,
+                    ),
+                  ),
+        
+                  const SizedBox(height: 50),
+        
+                  //
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade400),
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        hintText: 'Enter your email',
+                        hintStyle: TextStyle(color: Colors.grey[500])),
+                  ),
+                  const SizedBox(height: 25),
+        
+                  //
+                  TextField(
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade400),
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        hintText: 'Enter your password',
+                        hintStyle: TextStyle(color: Colors.grey[500])),
+                  ),
+        
+                  const SizedBox(height: 10),
+        
+                  // forgot password?
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(170, 80),
+                        textStyle: TextStyle(fontSize: 22),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                      ),
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      hintText: 'Enter your email',
-                      hintStyle: TextStyle(color: Colors.grey[500])),
-                ),
-                const SizedBox(height: 25),
-
-                //
-                TextField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                      ),
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      hintText: 'Enter your password',
-                      hintStyle: TextStyle(color: Colors.grey[500])),
-                ),
-
-                const SizedBox(height: 10),
-
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                      onPressed: signUserIn,
+                      child: Text("SignIn")),
+                  const SizedBox(height: 50),
+        
+                  //not a member , Register
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
+                        'Not a member',
+                        style: TextStyle(color: Colors.grey[700]),
                       ),
+                      const SizedBox(width: 4),
+                      // const Text(
+                      //   'register now',
+                      //   style: TextStyle(
+                      //     color: Colors.blue,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      TextButton(onPressed: register,
+                      child: Text(
+                        'register now',
+                        style: TextStyle(
+                          color:Colors.blue,
+                          fontWeight: FontWeight.bold,                      ),
+                      )
+                      )
                     ],
-                  ),
-                ),
-                const SizedBox(height: 25),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(170, 80),
-                      textStyle: TextStyle(fontSize: 22),
-                    ),
-                    onPressed: signUserIn,
-                    child: Text("SignIn")),
-                const SizedBox(height: 50),
-
-                //not a member , Register
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Not a member',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    const SizedBox(width: 4),
-                    // const Text(
-                    //   'register now',
-                    //   style: TextStyle(
-                    //     color: Colors.blue,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    TextButton(onPressed: register,
-                    child: Text(
-                      'register now',
-                      style: TextStyle(
-                        color:Colors.blue,
-                        fontWeight: FontWeight.bold,                      ),
-                    )
-                    )
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
