@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomaPage(),
+      home: HomePage(),
       // home: SignUp(),
       theme: ThemeData.dark(),
       // initialRoute: getIntialRoute(),

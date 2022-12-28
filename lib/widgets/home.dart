@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/services/remote_services.dart';
 
-class HomaPage extends StatelessWidget {
-  HomaPage({super.key});
+import '../models/nowplaying.dart';
+
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Movie>? _movies = [];
+
+  var isLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // populateMovies();
+  }
+
+  // void populateMovies() async {
+  //   var myMovies = await RemoteService.nowPlaying();
+  //   _movies = List.from(myMovies!);
+  //   print(_movies![1].title);
+  // }
 
   final List<Widget> _list = [
     Card(
@@ -16,8 +40,6 @@ class HomaPage extends StatelessWidget {
     const SizedBox(
       width: 20,
     ),
-
-    
     Card(
       elevation: 50,
       shadowColor: Colors.black,
@@ -30,8 +52,6 @@ class HomaPage extends StatelessWidget {
     const SizedBox(
       width: 20,
     ),
-
-    
     Card(
       elevation: 50,
       shadowColor: Colors.black,
@@ -44,8 +64,6 @@ class HomaPage extends StatelessWidget {
     const SizedBox(
       width: 20,
     ),
-
-    
     Card(
       elevation: 50,
       shadowColor: Colors.black,
@@ -58,8 +76,6 @@ class HomaPage extends StatelessWidget {
     const SizedBox(
       width: 20,
     ),
-
-    
     Card(
       elevation: 50,
       shadowColor: Colors.black,
@@ -72,8 +88,6 @@ class HomaPage extends StatelessWidget {
     const SizedBox(
       width: 20,
     ),
-
-    
     Card(
       elevation: 50,
       shadowColor: Colors.black,
@@ -86,9 +100,6 @@ class HomaPage extends StatelessWidget {
     const SizedBox(
       width: 20,
     ),
-
-    
-    
   ];
 
   @override
@@ -110,8 +121,7 @@ class HomaPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-
-                    //search field  
+                    //search field
                     child: TextField(
                       onChanged: (String str) {
                         print(str);
@@ -130,10 +140,13 @@ class HomaPage extends StatelessWidget {
                   // Button.icon(onPressed:() => print('hi'),icon: Icon(Icons.search),)
                   ElevatedButton.icon(
                     style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(Colors.green),
-
-                        ),
-                    onPressed: () => print('hi'),
+                      foregroundColor: MaterialStateProperty.all(Colors.green),
+                    ),
+                    // onPressed: () => print('hi'),
+                    onPressed: () async {
+                      List<Movie>? abc = await RemoteService.nowPlaying();
+                      print(abc?[0].title);
+                    },
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
@@ -149,12 +162,14 @@ class HomaPage extends StatelessWidget {
                 'Trending Movies',
                 textAlign: TextAlign.left,
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
-                height: 200,
+                height: 250,
                 child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.all(8),
                     itemCount: _list.length,
                     // itemBuilder: ((contex, index) => _list[index]),
@@ -167,7 +182,6 @@ class HomaPage extends StatelessWidget {
                       );
                     }),
               ),
-
 
               // upcoming movies
               const SizedBox(height: 50),
@@ -175,12 +189,14 @@ class HomaPage extends StatelessWidget {
                 'Upcoming Movies',
                 textAlign: TextAlign.left,
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 height: 200,
                 child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.all(8),
                     itemCount: _list.length,
                     // itemBuilder: ((contex, index) => _list[index]),
@@ -194,20 +210,20 @@ class HomaPage extends StatelessWidget {
                     }),
               ),
 
-
-
               //now playing
               const SizedBox(height: 50),
               Text(
                 'Now playing',
                 textAlign: TextAlign.left,
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 height: 200,
                 child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.all(8),
                     itemCount: _list.length,
                     // itemBuilder: ((contex, index) => _list[index]),
