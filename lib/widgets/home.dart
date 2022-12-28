@@ -11,36 +11,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Movie>? _movies = [];
+  
+  List<Movie>? abc = [];
+  List<Movie>? bcd = [];
+  List<Movie>? cde = []; 
 
   var isLoaded = false;
+  var isLoaded1 = false;
+  var isLoaded2 = false;
+
+  var baseUrl = 'http://image.tmdb.org/t/p/w500';
 
   @override
-  void initState() {
+  void initState(){
+    // response =await RemoteService.nowPlaying();
     super.initState();
-    // populateMovies();
+    populateMovies();
   }
 
-  // void populateMovies() async {
-  //   var myMovies = await RemoteService.nowPlaying();
-  //   _movies = List.from(myMovies!);
-  //   print(_movies![1].title);
-  // }
+
+
+  void populateMovies() async {
+    abc = await RemoteService.nowPlaying();
+    cde = await RemoteService.topRated();
+    bcd = await RemoteService.trending();
+
+    if(abc != null){
+      setState(() {
+        isLoaded = true;
+      });
+    }
+    if(cde != null){
+      setState(() {
+        isLoaded1 = true;
+      });
+    }
+    if(bcd != null){
+      setState(() {
+        isLoaded2 = true;
+      });
+    }
+  }
 
   final List<Widget> _list = [
-    Card(
-      elevation: 50,
-      shadowColor: Colors.black,
-      color: Colors.blueAccent,
-      child: SizedBox(
-        width: 200,
-        height: 500,
-      ),
-    ),
     const SizedBox(
       width: 20,
     ),
-    Card(
+    const Card(
       elevation: 50,
       shadowColor: Colors.black,
       color: Colors.blueAccent,
@@ -52,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     const SizedBox(
       width: 20,
     ),
-    Card(
+    const Card(
       elevation: 50,
       shadowColor: Colors.black,
       color: Colors.blueAccent,
@@ -64,7 +81,7 @@ class _HomePageState extends State<HomePage> {
     const SizedBox(
       width: 20,
     ),
-    Card(
+    const Card(
       elevation: 50,
       shadowColor: Colors.black,
       color: Colors.blueAccent,
@@ -76,24 +93,12 @@ class _HomePageState extends State<HomePage> {
     const SizedBox(
       width: 20,
     ),
-    Card(
+    const Card(
       elevation: 50,
       shadowColor: Colors.black,
       color: Colors.blueAccent,
       child: SizedBox(
         width: 300,
-        height: 500,
-      ),
-    ),
-    const SizedBox(
-      width: 20,
-    ),
-    Card(
-      elevation: 50,
-      shadowColor: Colors.black,
-      color: Colors.blueAccent,
-      child: SizedBox(
-        width: 200,
         height: 500,
       ),
     ),
@@ -106,12 +111,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'welcome',
           textAlign: TextAlign.center,
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 88, 88, 88),
+      backgroundColor: const Color.fromARGB(255, 88, 88, 88),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -126,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (String str) {
                         print(str);
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         iconColor: Colors.black,
                         // suffixIcon: Icon(Icons.search),
@@ -137,82 +142,31 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  // Button.icon(onPressed:() => print('hi'),icon: Icon(Icons.search),)
                   ElevatedButton.icon(
                     style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all(Colors.green),
                     ),
                     // onPressed: () => print('hi'),
                     onPressed: () async {
-                      List<Movie>? abc = await RemoteService.nowPlaying();
-                      print(abc?[0].title);
+                      // List<Movie>? abc = await RemoteService.nowPlaying();
+                      // print(abc?[0].title);
+                      // List<Movie>? bcd = await RemoteService.trending();
+                      // print(bcd?[0].title);
+                      // List<Movie>? cde = await RemoteService.topRated();
+                      // print(cde?[0].title);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.search,
                       color: Colors.black,
                     ),
-                    label: Text(''),
+                    label: const Text(''),
                   ),
                 ],
               ),
 
               //trending movies playing
               const SizedBox(height: 50),
-              Text(
-                'Trending Movies',
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 250,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _list.length,
-                    // itemBuilder: ((contex, index) => _list[index]),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: const EdgeInsets.all(8),
-                        height: 50,
-                        // color: Color.fromARGB(255, 253, 219, 202),
-                        child: Center(child: _list[index]),
-                      );
-                    }),
-              ),
-
-              // upcoming movies
-              const SizedBox(height: 50),
-              Text(
-                'Upcoming Movies',
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _list.length,
-                    // itemBuilder: ((contex, index) => _list[index]),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: const EdgeInsets.all(8),
-                        height: 50,
-                        // color: Color.fromARGB(255, 253, 219, 202),
-                        child: Center(child: _list[index]),
-                      );
-                    }),
-              ),
-
-              //now playing
-              const SizedBox(height: 50),
-              Text(
+              const Text(
                 'Now playing',
                 textAlign: TextAlign.left,
               ),
@@ -220,7 +174,49 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               SizedBox(
-                height: 200,
+                height: 400,
+                child: Visibility(
+                  visible: isLoaded,
+                  replacement: const Center(child: CircularProgressIndicator(),),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.all(8),
+                      itemCount: abc?.length,
+                      // itemBuilder: ((contex, index) => _list[index]),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          padding: const EdgeInsets.all(8),
+                          height: 350,
+                          width: 300,
+                          child: Column(
+                            children: [
+                              FadeInImage.assetNetwork(// Before image load
+                                placeholder: 'assets/placeholder.png', // Before image load
+                                image: baseUrl+abc![index].poster_path.toString(), // After image load
+                                height: 300,
+                                width: 250,
+                              ),
+                              Text(abc![index].title.toString()),
+                            ],
+                          ),
+                        );
+                      }),
+
+                ),
+              ),
+
+              // upcoming movies
+              const SizedBox(height: 50),
+              const Text(
+                'Top Rated',
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 400,
                 child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -229,11 +225,60 @@ class _HomePageState extends State<HomePage> {
                     // itemBuilder: ((contex, index) => _list[index]),
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        padding: const EdgeInsets.all(8),
-                        height: 50,
-                        // color: Color.fromARGB(255, 253, 219, 202),
-                        child: Center(child: _list[index]),
-                      );
+
+                          padding: const EdgeInsets.all(8),
+                          height: 350,
+                          width: 300,
+                          child: Column(
+                            children: [
+                              FadeInImage.assetNetwork(// Before image load
+                                placeholder: 'assets/placeholder.png', // Before image load
+                                image: baseUrl+bcd![index].poster_path.toString(), // After image load
+                                height: 300,
+                                width: 250,
+                              ),
+                              Text(bcd![index].title.toString()),
+                            ],
+                          ),
+                        );
+                    }),
+              ),
+
+              //now playing
+              const SizedBox(height: 50),
+              const Text(
+                'Trending Movies',
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 400,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.all(8),
+                    itemCount: _list.length,
+                    // itemBuilder: ((contex, index) => _list[index]),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+
+                          padding: const EdgeInsets.all(8),
+                          height: 350,
+                          width: 300,
+                          child: Column(
+                            children: [
+                              FadeInImage.assetNetwork(// Before image load
+                                placeholder: 'assets/placeholder.png', // Before image load
+                                image: baseUrl+cde![index].poster_path.toString(), // After image load
+                                height: 300,
+                                width: 250,
+                              ),
+                              Text(cde![index].title.toString()),
+                            ],
+                          ),
+                        );
                     }),
               ),
             ],
