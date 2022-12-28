@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/services/remote_services.dart';
+import 'package:movies_app/widgets/login_page.dart';
 
 import '../models/nowplaying.dart';
 
@@ -11,10 +13,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   List<Movie>? abc = [];
   List<Movie>? bcd = [];
-  List<Movie>? cde = []; 
+  List<Movie>? cde = [];
 
   var isLoaded = false;
   var isLoaded1 = false;
@@ -23,89 +24,35 @@ class _HomePageState extends State<HomePage> {
   var baseUrl = 'http://image.tmdb.org/t/p/w500';
 
   @override
-  void initState(){
+  void initState() {
     // response =await RemoteService.nowPlaying();
     super.initState();
     populateMovies();
   }
-
-
 
   void populateMovies() async {
     abc = await RemoteService.nowPlaying();
     bcd = await RemoteService.trending();
     cde = await RemoteService.topRated();
 
-    if(abc != null){
+    if (abc != null) {
       setState(() {
         isLoaded = true;
       });
     }
-    if(cde != null){
+    if (cde != null) {
       setState(() {
         isLoaded1 = true;
       });
     }
-    if(bcd != null){
+    if (bcd != null) {
       setState(() {
         isLoaded2 = true;
       });
     }
   }
 
-  final List<Widget> _list = [
-    const SizedBox(
-      width: 20,
-    ),
-    const Card(
-      elevation: 50,
-      shadowColor: Colors.black,
-      color: Colors.blueAccent,
-      child: SizedBox(
-        width: 300,
-        height: 500,
-      ),
-    ),
-    const SizedBox(
-      width: 20,
-    ),
-    const Card(
-      elevation: 50,
-      shadowColor: Colors.black,
-      color: Colors.blueAccent,
-      child: SizedBox(
-        width: 300,
-        height: 500,
-      ),
-    ),
-    const SizedBox(
-      width: 20,
-    ),
-    const Card(
-      elevation: 50,
-      shadowColor: Colors.black,
-      color: Colors.blueAccent,
-      child: SizedBox(
-        width: 300,
-        height: 500,
-      ),
-    ),
-    const SizedBox(
-      width: 20,
-    ),
-    const Card(
-      elevation: 50,
-      shadowColor: Colors.black,
-      color: Colors.blueAccent,
-      child: SizedBox(
-        width: 300,
-        height: 500,
-      ),
-    ),
-    const SizedBox(
-      width: 20,
-    ),
-  ];
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +62,23 @@ class _HomePageState extends State<HomePage> {
           'welcome',
           textAlign: TextAlign.center,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              auth.signOut().then((value) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginWidget()));
+              }).onError((error, stackTrace) {
+                print(error.toString());
+              });
+            },
+            icon: Icon(Icons.logout_rounded),
+          ),
+          SizedBox(
+            width: 20,
+          )
+        ],
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color.fromARGB(255, 88, 88, 88),
       body: SingleChildScrollView(
@@ -177,7 +141,9 @@ class _HomePageState extends State<HomePage> {
                 height: 400,
                 child: Visibility(
                   visible: isLoaded,
-                  replacement: const Center(child: CircularProgressIndicator(),),
+                  replacement: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -191,9 +157,14 @@ class _HomePageState extends State<HomePage> {
                           width: 300,
                           child: Column(
                             children: [
-                              FadeInImage.assetNetwork(// Before image load
-                                placeholder: 'assets/placeholder.png', // Before image load
-                                image: baseUrl+abc![index].poster_path.toString(), // After image load
+                              FadeInImage.assetNetwork(
+                                // Before image load
+                                placeholder:
+                                    'assets/placeholder.png', // Before image load
+                                image: baseUrl +
+                                    abc![index]
+                                        .poster_path
+                                        .toString(), // After image load
                                 height: 300,
                                 width: 250,
                               ),
@@ -202,7 +173,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                         );
                       }),
-
                 ),
               ),
 
@@ -228,22 +198,26 @@ class _HomePageState extends State<HomePage> {
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                
-                            padding: const EdgeInsets.all(8),
-                            height: 350,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                FadeInImage.assetNetwork(// Before image load
-                                  placeholder: 'assets/placeholder.png', // Before image load
-                                  image: baseUrl+bcd![index].poster_path.toString(), // After image load
-                                  height: 300,
-                                  width: 250,
-                                ),
-                                Text(bcd![index].title.toString()),
-                              ],
-                            ),
-                          );
+                          padding: const EdgeInsets.all(8),
+                          height: 350,
+                          width: 300,
+                          child: Column(
+                            children: [
+                              FadeInImage.assetNetwork(
+                                // Before image load
+                                placeholder:
+                                    'assets/placeholder.png', // Before image load
+                                image: baseUrl +
+                                    bcd![index]
+                                        .poster_path
+                                        .toString(), // After image load
+                                height: 300,
+                                width: 250,
+                              ),
+                              Text(bcd![index].title.toString()),
+                            ],
+                          ),
+                        );
                       }),
                 ),
               ),
@@ -270,22 +244,26 @@ class _HomePageState extends State<HomePage> {
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                
-                            padding: const EdgeInsets.all(8),
-                            height: 350,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                FadeInImage.assetNetwork(// Before image load
-                                  placeholder: 'assets/placeholder.png', // Before image load
-                                  image: baseUrl+cde![index].poster_path.toString(), // After image load
-                                  height: 300,
-                                  width: 250,
-                                ),
-                                Text(cde![index].title.toString()),
-                              ],
-                            ),
-                          );
+                          padding: const EdgeInsets.all(8),
+                          height: 350,
+                          width: 300,
+                          child: Column(
+                            children: [
+                              FadeInImage.assetNetwork(
+                                // Before image load
+                                placeholder:
+                                    'assets/placeholder.png', // Before image load
+                                image: baseUrl +
+                                    cde![index]
+                                        .poster_path
+                                        .toString(), // After image load
+                                height: 300,
+                                width: 250,
+                              ),
+                              Text(cde![index].title.toString()),
+                            ],
+                          ),
+                        );
                       }),
                 ),
               ),

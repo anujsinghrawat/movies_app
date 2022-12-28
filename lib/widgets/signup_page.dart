@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUp> {
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
       // ignore: use_build_context_synchronously
-      Navigator.pushNamed(context, '/signIn');
+      Navigator.pushReplacementNamed(context, '/signIn');
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
       Navigator.pop(context);
@@ -65,7 +65,7 @@ class _SignUpState extends State<SignUp> {
           title: Center(
             child: Text(
               'Incorrect Email',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Color.fromARGB(255, 7, 7, 7)),
             ),
           ),
         );
@@ -83,7 +83,7 @@ class _SignUpState extends State<SignUp> {
           title: Center(
             child: Text(
               'Incorrect Password',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
             ),
           ),
         );
