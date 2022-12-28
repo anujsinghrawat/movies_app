@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
 
   void populateMovies() async {
     abc = await RemoteService.nowPlaying();
-    cde = await RemoteService.topRated();
     bcd = await RemoteService.trending();
+    cde = await RemoteService.topRated();
 
     if(abc != null){
       setState(() {
@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
               // upcoming movies
               const SizedBox(height: 50),
               const Text(
-                'Top Rated',
+                'Trending',
                 textAlign: TextAlign.left,
               ),
               const SizedBox(
@@ -217,37 +217,41 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(
                 height: 400,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _list.length,
-                    // itemBuilder: ((contex, index) => _list[index]),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-
-                          padding: const EdgeInsets.all(8),
-                          height: 350,
-                          width: 300,
-                          child: Column(
-                            children: [
-                              FadeInImage.assetNetwork(// Before image load
-                                placeholder: 'assets/placeholder.png', // Before image load
-                                image: baseUrl+bcd![index].poster_path.toString(), // After image load
-                                height: 300,
-                                width: 250,
-                              ),
-                              Text(bcd![index].title.toString()),
-                            ],
-                          ),
-                        );
-                    }),
+                child: Visibility(
+                  visible: isLoaded1,
+                  replacement: CircularProgressIndicator(),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.all(8),
+                      itemCount: bcd?.length,
+                      // itemBuilder: ((contex, index) => _list[index]),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                
+                            padding: const EdgeInsets.all(8),
+                            height: 350,
+                            width: 300,
+                            child: Column(
+                              children: [
+                                FadeInImage.assetNetwork(// Before image load
+                                  placeholder: 'assets/placeholder.png', // Before image load
+                                  image: baseUrl+bcd![index].poster_path.toString(), // After image load
+                                  height: 300,
+                                  width: 250,
+                                ),
+                                Text(bcd![index].title.toString()),
+                              ],
+                            ),
+                          );
+                      }),
+                ),
               ),
 
               //now playing
               const SizedBox(height: 50),
               const Text(
-                'Trending Movies',
+                'Top Rated',
                 textAlign: TextAlign.left,
               ),
               const SizedBox(
@@ -255,31 +259,35 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(
                 height: 400,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _list.length,
-                    // itemBuilder: ((contex, index) => _list[index]),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-
-                          padding: const EdgeInsets.all(8),
-                          height: 350,
-                          width: 300,
-                          child: Column(
-                            children: [
-                              FadeInImage.assetNetwork(// Before image load
-                                placeholder: 'assets/placeholder.png', // Before image load
-                                image: baseUrl+cde![index].poster_path.toString(), // After image load
-                                height: 300,
-                                width: 250,
-                              ),
-                              Text(cde![index].title.toString()),
-                            ],
-                          ),
-                        );
-                    }),
+                child: Visibility(
+                  visible: isLoaded2,
+                  replacement: const CircularProgressIndicator(),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.all(8),
+                      itemCount: cde?.length,
+                      // itemBuilder: ((contex, index) => _list[index]),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                
+                            padding: const EdgeInsets.all(8),
+                            height: 350,
+                            width: 300,
+                            child: Column(
+                              children: [
+                                FadeInImage.assetNetwork(// Before image load
+                                  placeholder: 'assets/placeholder.png', // Before image load
+                                  image: baseUrl+cde![index].poster_path.toString(), // After image load
+                                  height: 300,
+                                  width: 250,
+                                ),
+                                Text(cde![index].title.toString()),
+                              ],
+                            ),
+                          );
+                      }),
+                ),
               ),
             ],
           ),
