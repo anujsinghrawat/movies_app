@@ -28,10 +28,12 @@ class _SignUpState extends State<SignUp> {
 
     // try sign in
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      User? user = result.user;
+      user?.updateDisplayName(nameController.text);
       // pop the loading circle
       // ignore: use_build_context_synchronously
       Navigator.pop(context);

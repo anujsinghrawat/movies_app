@@ -1,6 +1,8 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/services/auth_service.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -15,9 +17,8 @@ class _LoginWidgetState extends State<LoginWidget> {
     Navigator.pushNamed(context, '/signUp');
   }
 
-  //signin google 
+  //signin google
   Future<UserCredential> signInWithGoogle() async {
-    
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -32,10 +33,9 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
 
     // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.pushReplacementNamed(context, '/home');
     return await FirebaseAuth.instance.signInWithCredential(credential);
-    
-
-
   }
 
   void signUserIn() async {
@@ -205,13 +205,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                 //Signin with Google account
                 const SizedBox(height: 25),
                 ElevatedButton.icon(
-                  icon: const Icon(Icons.login),
+                  // icon: const Icon(Icons.login),
+                  icon: FaIcon(FontAwesomeIcons.google),
                   label: const Text("SignIn with Google account"),
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(170, 80),
                     textStyle: const TextStyle(fontSize: 22),
                   ),
-                  onPressed: signInWithGoogle,
+                  onPressed: () {
+                    AuthService().signInWithGoogle();
+                    print('auth.google.com');
+                  },
                 ),
                 const SizedBox(height: 50),
 

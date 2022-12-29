@@ -52,14 +52,20 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+  //   final user = userCredential.user;
+      // print(user?.uid);
+
+
+
   final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'welcome',
+        title: Text(
+          '${FirebaseAuth.instance.currentUser!.displayName} welcome',
           textAlign: TextAlign.center,
         ),
         actions: [

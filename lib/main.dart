@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:movies_app/routes/app_routes.dart';
+import 'package:movies_app/services/auth_service.dart';
 import 'package:movies_app/services/user.dart';
 import 'package:movies_app/widgets/home.dart';
 import 'package:movies_app/widgets/login_page.dart';
@@ -34,11 +35,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: HomePage(),
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: ((context, snapshot) => snapshot.hasData?HomePage():LoginWidget()),
-        ),
+        home: AuthService().handleAuthState(),
+        // home: StreamBuilder(
+        //   stream: FirebaseAuth.instance.authStateChanges(),
+        //   builder: ((context, snapshot) => snapshot.hasData?HomePage():LoginWidget()),
+        // ),
         theme: ThemeData.dark(),
         
         // initialRoute: getIntialRoute(),
