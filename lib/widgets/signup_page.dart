@@ -209,20 +209,6 @@ class _SignUpState extends State<SignUp> {
               
                 const SizedBox(height: 10),
       
-                // forgot password?
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.end,
-                //     children: [
-                //       Text(
-                //         'Forgot Password?',
-                //         style: TextStyle(color: Colors.grey[600]),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-      
                 //signup button
                 const SizedBox(height: 25),
                 ElevatedButton(
@@ -240,27 +226,6 @@ class _SignUpState extends State<SignUp> {
                  )
                  ),
                  const SizedBox(height: 50),
-      
-                 //not a member , Register
-                //  Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       'Not a member',
-                //       style: TextStyle(
-                //         color: Colors.grey[700]
-                //         ),
-                //     ),
-                //     const SizedBox(width: 4),
-                //     const Text(
-                //       'register now',
-                //       style: TextStyle(
-                //         color: Colors.blue,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ],
-                //  )
                 
       
               ],

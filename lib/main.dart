@@ -26,29 +26,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  // User isLogedin = User();
-  // bool flag = User.flag;
-
-  // String getIntialRoute() => (flag==true)?AppRoutes.home:AppRoutes.signIn;
-  // Route getRoute(RouteSettings settings) {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: AuthService().handleAuthState(),
-        // home: StreamBuilder(
-        //   stream: FirebaseAuth.instance.authStateChanges(),
-        //   builder: ((context, snapshot) => snapshot.hasData?HomePage():LoginWidget()),
-        // ),
         theme: ThemeData.dark(),
-        
-        // initialRoute: getIntialRoute(),
-        // onGenerateRoute: (route) => getRoute(route),
         routes: {
           '/signIn': (context) => LoginWidget(),
           '/signUp': (context) => SignUp(),
           '/home': (context) => HomePage(),
-          // '/home':(context) =>
         });
   }
 }

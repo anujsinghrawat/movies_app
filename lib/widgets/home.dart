@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // response =await RemoteService.nowPlaying();
     super.initState();
     populateMovies();
   }
@@ -52,10 +51,6 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-
-  // final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-  //   final user = userCredential.user;
-  // print(user?.uid);
 
   final auth = FirebaseAuth.instance;
 
