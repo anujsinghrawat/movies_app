@@ -225,7 +225,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   onPressed: () {
                     AuthService().signInWithGoogle();
-                    print('auth.google.com');
+                    AuthService().handleAuthState();
+                    // print('auth.google.com');
                   },
                 ),
                 const SizedBox(height: 50),

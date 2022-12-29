@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LoginWidget()));
               }).onError((error, stackTrace) {
-                print(error.toString());
+                // print(error.toString());
               });
             },
             icon: const Icon(Icons.logout_rounded),
@@ -105,13 +105,14 @@ class _HomePageState extends State<HomePage> {
                     //search field
                     child: SizedBox(
                       height: 50,
+                      width: 100,
                       child: TextField(
                         decoration: InputDecoration(
                             prefixIcon: const Align(
                                 widthFactor: 1.0,
                                 heightFactor: 1.0,
                                 child:
-                                    FaIcon(FontAwesomeIcons.magnifyingGlass)),
+                                    FaIcon(FontAwesomeIcons.bars)),
                             enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
@@ -147,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               ),
 
               //Now playing
-              const SizedBox(height: 50),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: const [
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 5,
               ),
               SizedBox(
                 height: 400,
@@ -174,16 +175,14 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.all(8),
+                      // padding: const EdgeInsets.all(8),
                       itemCount: abc?.length,
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          
-                          color: Color.fromARGB(255, 145, 109, 0),
-                          padding: const EdgeInsets.all(8),
+                          padding: EdgeInsets.all(10),
                           height: 350,
-                          width: 300,
+                          width: 250,
                           child: Column(
                             children: [
                               FadeInImage.assetNetwork(
@@ -204,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              Text('Rating...${abc![index].stars?.toDouble()}'),
+                              Text('Rating  - ${abc![index].stars?.toDouble()} ⭐'),
                               
                             ],
                           ),
