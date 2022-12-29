@@ -20,7 +20,7 @@ class RemoteService {
       abc.add(Movie(
         title: body['results'][i]['title'],
         poster_path: body['results'][i]['poster_path'],
-        stars: body['results'][i]['stars'],
+        stars: body['results'][i]['vote_average'],
         name: body['results'][i]['name'],
       ));
     }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movies_app/services/remote_services.dart';
 import 'package:movies_app/widgets/login_page.dart';
 
@@ -54,9 +55,7 @@ class _HomePageState extends State<HomePage> {
 
   // final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
   //   final user = userCredential.user;
-      // print(user?.uid);
-
-
+  // print(user?.uid);
 
   final auth = FirebaseAuth.instance;
 
@@ -65,7 +64,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${FirebaseAuth.instance.currentUser!.displayName} welcome',
+          'Welcome ${FirebaseAuth.instance.currentUser!.displayName} ',
+          style: const TextStyle(
+            fontSize: 22,
+            color: Colors.amber,
+          ),
           textAlign: TextAlign.center,
         ),
         actions: [
@@ -78,9 +81,9 @@ class _HomePageState extends State<HomePage> {
                 print(error.toString());
               });
             },
-            icon: Icon(Icons.logout_rounded),
+            icon: const Icon(Icons.logout_rounded),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           )
         ],
@@ -95,50 +98,68 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
                   Expanded(
                     //search field
-                    child: TextField(
-                      onChanged: (String str) {
-                        print(str);
-                      },
-                      decoration: const InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        iconColor: Colors.black,
-                        // suffixIcon: Icon(Icons.search),
-                        fillColor: Color.fromARGB(255, 56, 54, 54),
-                        border: OutlineInputBorder(),
-                        labelText: 'Search for the movie',
-                        prefixIcon: Icon(Icons.menu),
+                    child: SizedBox(
+                      height: 50,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            prefixIcon: const Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child:
+                                    FaIcon(FontAwesomeIcons.magnifyingGlass)),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade400),
+                            ),
+                            fillColor: const Color.fromARGB(255, 53, 53, 53),
+                            filled: true,
+                            hintText: 'Search for movies',
+                            hintStyle: TextStyle(color: Colors.grey[500])),
                       ),
                     ),
                   ),
                   ElevatedButton.icon(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.green),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        // side: const BorderSide(color: Colors.red)
+                      ),
+                      backgroundColor: Colors.amber,
+                      foregroundColor: const Color.fromARGB(255, 83, 83, 83),
+                      minimumSize: const Size(45, 50),
+                      textStyle: const TextStyle(fontSize: 22),
                     ),
-                    // onPressed: () => print('hi'),
-                    onPressed: () async {
-                      // List<Movie>? abc = await RemoteService.nowPlaying();
-                      // print(abc?[0].title);
-                      // List<Movie>? bcd = await RemoteService.trending();
-                      // print(bcd?[0].title);
-                      // List<Movie>? cde = await RemoteService.topRated();
-                      // print(cde?[0].title);
-                    },
+                    onPressed: () async {},
                     icon: const Icon(
                       Icons.search,
-                      color: Colors.black,
                     ),
                     label: const Text(''),
                   ),
                 ],
               ),
 
-              //trending movies playing
+              //Now playing
               const SizedBox(height: 50),
-              const Text(
-                'Now playing',
-                textAlign: TextAlign.left,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Now playing',
+                    style: TextStyle(
+                        color: Colors.amberAccent,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 20,
@@ -158,6 +179,8 @@ class _HomePageState extends State<HomePage> {
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
+                          
+                          color: Color.fromARGB(255, 145, 109, 0),
                           padding: const EdgeInsets.all(8),
                           height: 350,
                           width: 300,
@@ -174,7 +197,15 @@ class _HomePageState extends State<HomePage> {
                                 height: 300,
                                 width: 250,
                               ),
+                              const SizedBox(
+                                height: 8,
+                              ),
                               Text(abc![index].title.toString()),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text('Rating...${abc![index].stars?.toDouble()}'),
+                              
                             ],
                           ),
                         );
@@ -195,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                 height: 400,
                 child: Visibility(
                   visible: isLoaded1,
-                  replacement: CircularProgressIndicator(),
+                  replacement: const CircularProgressIndicator(),
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -221,6 +252,7 @@ class _HomePageState extends State<HomePage> {
                                 width: 250,
                               ),
                               Text(bcd![index].title.toString()),
+                              Text('Rating...${abc![index].stars?.toDouble()}')
                             ],
                           ),
                         );
@@ -266,7 +298,14 @@ class _HomePageState extends State<HomePage> {
                                 height: 300,
                                 width: 250,
                               ),
+                              const SizedBox(
+                                height: 8,
+                              ),
                               Text(cde![index].title.toString()),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text('Rating...${abc![index].stars?.toDouble()}')
                             ],
                           ),
                         );

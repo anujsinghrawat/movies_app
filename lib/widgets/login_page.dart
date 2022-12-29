@@ -18,25 +18,25 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   //signin google
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  // Future<UserCredential> signInWithGoogle() async {
+  //   // Trigger the authentication flow
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+  //   // Obtain the auth details from the request
+  //   final GoogleSignInAuthentication? googleAuth =
+  //       await googleUser?.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+  //   // Create a new credential
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth?.accessToken,
+  //     idToken: googleAuth?.idToken,
+  //   );
 
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
-    Navigator.pushReplacementNamed(context, '/home');
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  }
+  //   // Once signed in, return the UserCredential
+  //   await FirebaseAuth.instance.signInWithCredential(credential);
+  //   Navigator.pushReplacementNamed(context, '/home');
+  //   return await FirebaseAuth.instance.signInWithCredential(credential);
+  // }
 
   void signUserIn() async {
     // show loading circle
@@ -114,7 +114,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: const Color.fromARGB(255, 29, 29, 29),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
@@ -133,11 +133,11 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                 //welcome Back
 
-                Text(
+                const Text(
                   'welcome Back,you\'ve been missed!',
                   style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
+                    color: Color.fromARGB(255, 150, 150, 150),
+                    fontSize: 20,
                   ),
                 ),
 
@@ -147,13 +147,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(
+                      prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: FaIcon(FontAwesomeIcons.envelope)),
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey.shade400),
                       ),
-                      fillColor: Colors.grey.shade200,
+                      fillColor: const Color.fromARGB(255, 53, 53, 53),
                       filled: true,
                       hintText: 'Enter your email',
                       hintStyle: TextStyle(color: Colors.grey[500])),
@@ -162,15 +166,18 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                 //
                 TextField(
+                  obscureText: true,
+                  autocorrect: false,
                   controller: passwordController,
                   decoration: InputDecoration(
+                      prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: FaIcon(FontAwesomeIcons.user)),
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                      ),
-                      fillColor: Colors.grey.shade200,
+                      fillColor: const Color.fromARGB(255, 53, 53, 53),
                       filled: true,
                       hintText: 'Enter your password',
                       hintStyle: TextStyle(color: Colors.grey[500])),
@@ -196,20 +203,24 @@ class _LoginWidgetState extends State<LoginWidget> {
                 const SizedBox(height: 25),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(170, 80),
-                      textStyle: TextStyle(fontSize: 22),
+                      backgroundColor: Colors.amber,
+                      foregroundColor: Color.fromARGB(255, 83, 83, 83),
+                      minimumSize: const Size(350, 50),
+                      textStyle: const TextStyle(fontSize: 22),
                     ),
                     onPressed: signUserIn,
-                    child: Text("SignIn")),
+                    child: const Text("SignIn")),
 
                 //Signin with Google account
                 const SizedBox(height: 25),
                 ElevatedButton.icon(
                   // icon: const Icon(Icons.login),
-                  icon: FaIcon(FontAwesomeIcons.google),
+                  icon: const FaIcon(FontAwesomeIcons.google),
                   label: const Text("SignIn with Google account"),
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(170, 80),
+                    backgroundColor: Colors.amber,
+                    foregroundColor: Color.fromARGB(255, 83, 83, 83),
+                    minimumSize: const Size(300, 50),
                     textStyle: const TextStyle(fontSize: 22),
                   ),
                   onPressed: () {
@@ -237,7 +248,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     // ),
                     TextButton(
                         onPressed: register,
-                        child: Text(
+                        child: const Text(
                           'register now',
                           style: TextStyle(
                             color: Colors.blue,
