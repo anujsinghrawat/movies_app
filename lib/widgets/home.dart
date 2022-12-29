@@ -111,8 +111,7 @@ class _HomePageState extends State<HomePage> {
                             prefixIcon: const Align(
                                 widthFactor: 1.0,
                                 heightFactor: 1.0,
-                                child:
-                                    FaIcon(FontAwesomeIcons.bars)),
+                                child: FaIcon(FontAwesomeIcons.bars)),
                             enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             ),
@@ -180,31 +179,60 @@ class _HomePageState extends State<HomePage> {
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          padding: EdgeInsets.all(10),
-                          height: 350,
-                          width: 250,
+                          padding: const EdgeInsets.all(10),
+                          height: 375,
+                          width: 275,
                           child: Column(
                             children: [
-                              FadeInImage.assetNetwork(
-                                // Before image load
-                                placeholder:
-                                    'assets/placeholder.png', // Before image load
-                                image: baseUrl +
-                                    abc![index]
-                                        .poster_path
-                                        .toString(), // After image load
-                                height: 300,
-                                width: 250,
+                              Card(
+                                shadowColor: Colors.blue,
+                                color: const Color.fromARGB(255, 16, 33, 41),
+                                elevation: 3.0,
+                                shape: const RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    // color:
+                                    //     Theme.of(context).colorScheme.outline,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(12)),
+                                ),
+                                child: FadeInImage.assetNetwork(
+                                  // Before image load
+                                  placeholder:
+                                      'assets/placeholder.png', // Before image load
+                                  image: baseUrl +
+                                      abc![index]
+                                          .poster_path
+                                          .toString(), // After image load
+                                  height: 275,
+                                  width: 225,
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
                               ),
-                              Text(abc![index].title.toString()),
-                              const SizedBox(
-                                height: 8,
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blueAccent,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      abc![index].title.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                        'Rating  - ${abc![index].stars?.toDouble()} ⭐'),
+                                  ],
+                                ),
                               ),
-                              Text('Rating  - ${abc![index].stars?.toDouble()} ⭐'),
-                              
                             ],
                           ),
                         );
@@ -212,46 +240,96 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              // upcoming movies
-              const SizedBox(height: 50),
-              const Text(
-                'Trending',
-                textAlign: TextAlign.left,
+
+
+
+              //Trending  
+              // const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Trending Movies',
+                    style: TextStyle(
+                        color: Colors.amberAccent,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               SizedBox(
                 height: 400,
                 child: Visibility(
-                  visible: isLoaded1,
-                  replacement: const CircularProgressIndicator(),
+                  visible: isLoaded,
+                  replacement: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.all(8),
+                      // padding: const EdgeInsets.all(8),
                       itemCount: bcd?.length,
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          padding: const EdgeInsets.all(8),
-                          height: 350,
-                          width: 300,
+                          padding: const EdgeInsets.all(10),
+                          height: 375,
+                          width: 275,
                           child: Column(
                             children: [
-                              FadeInImage.assetNetwork(
-                                // Before image load
-                                placeholder:
-                                    'assets/placeholder.png', // Before image load
-                                image: baseUrl +
-                                    bcd![index]
-                                        .poster_path
-                                        .toString(), // After image load
-                                height: 300,
-                                width: 250,
+                              Card(
+                                shadowColor: Colors.blue,
+                                color: const Color.fromARGB(255, 16, 33, 41),
+                                elevation: 3.0,
+                                shape: const RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    // color:
+                                    //     Theme.of(context).colorScheme.outline,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(12)),
+                                ),
+                                child: FadeInImage.assetNetwork(
+                                  // Before image load
+                                  placeholder:
+                                      'assets/placeholder.png', // Before image load
+                                  image: baseUrl +
+                                      bcd![index]
+                                          .poster_path
+                                          .toString(), // After image load
+                                  height: 275,
+                                  width: 225,
+                                ),
                               ),
-                              Text(bcd![index].title.toString()),
-                              Text('Rating...${abc![index].stars?.toDouble()}')
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blueAccent,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      bcd![index].title.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                        'Rating  - ${bcd![index].stars?.toDouble()} ⭐'),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -259,58 +337,105 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              //now playing
-              const SizedBox(height: 50),
-              const Text(
-                'Top Rated',
-                textAlign: TextAlign.left,
+
+
+
+
+              //TopRated
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Top Rated Movies',
+                    style: TextStyle(
+                        color: Colors.amberAccent,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 20,
+                height: 5,
               ),
               SizedBox(
                 height: 400,
                 child: Visibility(
-                  visible: isLoaded2,
-                  replacement: const CircularProgressIndicator(),
+                  visible: isLoaded,
+                  replacement: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.all(8),
+                      // padding: const EdgeInsets.all(8),
                       itemCount: cde?.length,
                       // itemBuilder: ((contex, index) => _list[index]),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          padding: const EdgeInsets.all(8),
-                          height: 350,
-                          width: 300,
+                          padding: const EdgeInsets.all(10),
+                          height: 375,
+                          width: 275,
                           child: Column(
                             children: [
-                              FadeInImage.assetNetwork(
-                                // Before image load
-                                placeholder:
-                                    'assets/placeholder.png', // Before image load
-                                image: baseUrl +
-                                    cde![index]
-                                        .poster_path
-                                        .toString(), // After image load
-                                height: 300,
-                                width: 250,
+                              Card(
+                                shadowColor: Colors.blue,
+                                color: const Color.fromARGB(255, 16, 33, 41),
+                                elevation: 3.0,
+                                shape: const RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    // color:
+                                    //     Theme.of(context).colorScheme.outline,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(12)),
+                                ),
+                                child: FadeInImage.assetNetwork(
+                                  // Before image load
+                                  placeholder:
+                                      'assets/placeholder.png', // Before image load
+                                  image: baseUrl +
+                                      cde![index]
+                                          .poster_path
+                                          .toString(), // After image load
+                                  height: 275,
+                                  width: 225,
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
                               ),
-                              Text(cde![index].title.toString()),
-                              const SizedBox(
-                                height: 8,
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blueAccent,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      cde![index].title.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                        'Rating  - ${cde![index].stars?.toDouble()} ⭐'),
+                                  ],
+                                ),
                               ),
-                              Text('Rating...${abc![index].stars?.toDouble()}')
                             ],
                           ),
                         );
                       }),
                 ),
               ),
+
+              
             ],
           ),
         ),
